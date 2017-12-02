@@ -1,5 +1,6 @@
 package ndseeg.goodhabits;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import ndseeg.goodhabits.goals.GoalsFragment;
@@ -63,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public void addGoodHabit(View view) {
+        DialogFragment dialogFragment = new AddGoodHabitDialogFragment();
+        dialogFragment.show(fragmentManager, "dialog");
+    }
+
+    public void goodHabitPostiveClick() {
+        Log.d(TAG, "Postivie Vibes");
     }
 
 }
