@@ -8,4 +8,6 @@
     <string name="alert_dialog_save">Save</string>
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="test">test</string>
+    <string name="profile">Profile</string>
+    <string name="calendar">Calendar</string>
 </resources>

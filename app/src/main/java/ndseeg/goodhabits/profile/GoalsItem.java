@@ -1,4 +1,4 @@
-package ndseeg.goodhabits;
+package ndseeg.goodhabits.profile;
 
 /**
  * Created by Nathan Seegmiller on 11/19/2017.

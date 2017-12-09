@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 
 /**
  * Created by ndseeg on 12/2/17.
@@ -15,15 +16,14 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // copied code from tictactoe project
-        // Use the Builder class for convenient dialog construction
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         builder.setView(R.layout.add_good_habit);
         builder.setMessage(R.string.test)
                 .setPositiveButton(R.string.alert_dialog_save,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                ((MainActivity) getActivity()).goodHabitPostiveClick();
+                                positiveClick();
                                 dismiss();
                             }
                         })
@@ -37,5 +37,12 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    public void positiveClick() {
+        EditText editText = (EditText) getActivity().findViewById(R.id.edit_test);
+        if (editText == null) {
+            Log.d("Dialog", "EDIT TEXT IS NULL");
+        }
+        ((MainActivity) getActivity()).goodHabitPostiveClick();
+    }
 
 }

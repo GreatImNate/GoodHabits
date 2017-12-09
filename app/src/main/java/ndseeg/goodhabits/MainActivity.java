@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import ndseeg.goodhabits.goals.GoalsFragment;
+import ndseeg.goodhabits.profile.GoalsFragment;
 import ndseeg.goodhabits.tracking.TrackingFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,15 +37,13 @@ public class MainActivity extends AppCompatActivity {
                     fragment = HomeFragment.newInstance();
                     Log.d(TAG, "Selecting HOME Navigation");
                     break;
-                case R.id.navigation_goals:
+                case R.id.navigation_profile:
                     fragment = GoalsFragment.newInstance();
                     Log.d(TAG, "Selecting GOALS Navigation");
 
                     break;
-                case R.id.navigation_tracking:
+                case R.id.navigation_calendar:
                     fragment = TrackingFragment.newInstance();
-                    Log.d(TAG, "Selecting TRACKING Navigation");
-
                     break;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -1,7 +1,6 @@
-package ndseeg.goodhabits.goals;
+package ndseeg.goodhabits.profile;
 
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
