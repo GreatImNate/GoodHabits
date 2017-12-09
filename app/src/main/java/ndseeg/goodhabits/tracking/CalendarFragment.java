@@ -1,6 +1,5 @@
 package ndseeg.goodhabits.tracking;
 
-import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,13 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 
-import java.util.Date;
 
-import ndseeg.goodhabits.R;
-
-public class TrackingFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
     private final static String TAG = "CALENDAR_FRAGMENT";
 
@@ -34,11 +29,11 @@ public class TrackingFragment extends Fragment {
         return calendarView;
     }
 
-    public static TrackingFragment newInstance() {
+    public static CalendarFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        TrackingFragment fragment = new TrackingFragment();
+        CalendarFragment fragment = new CalendarFragment();
         fragment.setArguments(args);
         return fragment;
     }

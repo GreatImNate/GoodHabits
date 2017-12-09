@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,8 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import ndseeg.goodhabits.profile.GoalsFragment;
-import ndseeg.goodhabits.tracking.TrackingFragment;
+import ndseeg.goodhabits.profile.AddGoodHabitActivity;
+import ndseeg.goodhabits.profile.ProfileFragment;
+import ndseeg.goodhabits.tracking.CalendarFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Selecting HOME Navigation");
                     break;
                 case R.id.navigation_profile:
-                    fragment = GoalsFragment.newInstance();
+                    fragment = ProfileFragment.newInstance();
                     Log.d(TAG, "Selecting GOALS Navigation");
 
                     break;
                 case R.id.navigation_calendar:
-                    fragment = TrackingFragment.newInstance();
+                    fragment = CalendarFragment.newInstance();
                     break;
             }
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -65,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public void addGoodHabit(View view) {
-        DialogFragment dialogFragment = new AddGoodHabitDialogFragment();
-        dialogFragment.show(fragmentManager, "dialog");
-    }
 
     public void goodHabitPostiveClick() {
         Log.d(TAG, "Postivie Vibes");
