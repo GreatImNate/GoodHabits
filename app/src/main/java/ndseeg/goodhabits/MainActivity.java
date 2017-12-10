@@ -1,20 +1,16 @@
 package ndseeg.goodhabits;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import ndseeg.goodhabits.profile.AddGoodHabitActivity;
 import ndseeg.goodhabits.profile.ProfileFragment;
 import ndseeg.goodhabits.tracking.CalendarFragment;
 

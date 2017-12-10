@@ -10,12 +10,4 @@ import android.support.annotation.Nullable;
 
 public abstract class AddActivity extends Activity {
 
-    private String name;
-
-
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 }

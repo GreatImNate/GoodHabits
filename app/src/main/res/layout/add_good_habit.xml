@@ -1,12 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/edit_test"
+        android:id="@+id/good_habit_name_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Good Habit (Name)"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/test"/>
+        android:text="Sunday"
+        android:layout_below="@+id/good_habit_name_edit"
+        android:layout_alignStart="@+id/checkBox8" />
 
-</LinearLayout>
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:layout_below="@+id/good_habit_name_edit"
+        android:layout_toEndOf="@+id/checkBox8" />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/checkBox5"
+        android:layout_toEndOf="@+id/checkBox5"
+        android:text="Tuesday" />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/good_habit_name_edit"
+        android:layout_toEndOf="@+id/checkBox6"
+        android:text="Wednesday" />
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thursday"
+        android:layout_below="@+id/checkBox4"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friday"
+        android:layout_alignBaseline="@+id/checkBox8"
+        android:layout_alignBottom="@+id/checkBox8"
+        android:layout_toEndOf="@+id/checkBox8" />
+
+    <CheckBox
+        android:id="@+id/checkBox10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saturday"
+        android:layout_below="@+id/checkBox6"
+        android:layout_toEndOf="@+id/checkBox5" />
+
+    <!--todo: have fields for classification-->
+
+
+</RelativeLayout>
