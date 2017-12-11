@@ -26,7 +26,7 @@ public class GoodHabitActivity extends Activity implements AddGoodHabitDialogFra
     }
 
     public void addGoodHabit(View view) {
-        DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance();
+        DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance(null);
         addGoodHabit.setTargetFragment(addGoodHabit, 1);
         addGoodHabit.show(fragmentManager, "addGoodHabit");
 

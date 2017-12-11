@@ -1,5 +1,7 @@
 package ndseeg.goodhabits.profile.goodhabit;
 
+import android.os.Parcel;
+
 import ndseeg.goodhabits.profile.Item;
 
 /**
@@ -9,4 +11,13 @@ import ndseeg.goodhabits.profile.Item;
 public class GoodHabitItem extends Item {
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

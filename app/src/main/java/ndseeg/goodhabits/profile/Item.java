@@ -1,10 +1,12 @@
 package ndseeg.goodhabits.profile;
 
 
+import android.os.Parcelable;
+
 import lombok.Data;
 
 @Data
-public abstract class Item {
+public abstract class Item implements Parcelable{
     String name;
     String description;
 
