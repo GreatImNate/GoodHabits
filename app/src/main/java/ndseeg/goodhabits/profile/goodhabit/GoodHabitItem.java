@@ -8,4 +8,5 @@ import ndseeg.goodhabits.profile.Item;
 
 public class GoodHabitItem extends Item {
 
+
 }

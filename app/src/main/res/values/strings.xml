@@ -11,4 +11,13 @@
     <string name="profile">Profile</string>
     <string name="calendar">Calendar</string>
     <string name="good_habit">Good Habit</string>
+    <string-array name="weekdays">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 </resources>

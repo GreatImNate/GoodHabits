@@ -34,6 +34,6 @@ public class GoodHabitActivity extends Activity implements AddGoodHabitDialogFra
 
     @Override
     public void onComplete(Item item) {
-
+        Log.d(TAG, "Item returned from dialogFragment: " + item.toString());
     }
 }

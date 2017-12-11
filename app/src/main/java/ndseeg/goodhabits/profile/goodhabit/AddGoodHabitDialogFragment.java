@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import ndseeg.goodhabits.R;
@@ -33,11 +35,9 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                Dialog test = (Dialog) dialog;
-                                EditText goodHabitName = (EditText) test.findViewById(R.id.good_habit_name_edit);
-                                Log.d(TAG, "Is the name getting set in the dialog fragment? " + goodHabitName.getText());
-                                positiveClick();
-                                dismiss();
+                                boolean result = positiveClick(dialog);
+                                if (result)
+                                    dismiss();
                             }
                         })
                 .setNegativeButton(R.string.alert_dialog_cancel,
@@ -46,17 +46,24 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
                                 dismiss();
                             }
                         });
+
         // Create the AlertDialog object and return it
         return builder.create();
     }
 
-    public void positiveClick() {
-        EditText editText = (EditText) getActivity().findViewById(R.id.good_habit_name_edit);
-        if (editText == null) {
+    public boolean positiveClick(DialogInterface dialogInterface) {
+        Dialog dialog = (Dialog) dialogInterface;
+        EditText editText = (EditText) dialog.findViewById(R.id.good_habit_name_edit);
+        if (editText.getText().toString().equals("")) {
             Log.d(TAG, "EDIT TEXT IS NULL");
-            return;
+            return false;
         }
         Log.d(TAG, "positiveClick: " + editText.getText());
+        Item item = new GoodHabitItem();
+        item.setName(editText.getText().toString());
+        this.onCompleteListener.onComplete(item);
+        return true;
+
     }
 
     public static AddGoodHabitDialogFragment newInstance() {
@@ -72,6 +79,7 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
     public static interface OnCompleteListener {
         public abstract void onComplete(Item item);
     }
+
 
 
     @Override

@@ -1,7 +1,9 @@
 package ndseeg.goodhabits.profile;
 
 
+import lombok.Data;
 
+@Data
 public abstract class Item {
     String name;
     String description;
@@ -10,7 +12,5 @@ public abstract class Item {
     // For Goals the value will represent the points that you need to accumulate to
     int value;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 }
