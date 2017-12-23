@@ -12,7 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
@@ -29,7 +35,12 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
     private EditText goodHabitName;
     private EditText goodHabitDescription;
-    private Item item;
+
+    private CheckBox[] checkBoxes;
+
+    private GoodHabitItem item;
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -41,10 +52,21 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         View view = layoutInflater.inflate(R.layout.add_good_habit, null);
         goodHabitName = (EditText) view.findViewById(R.id.good_habit_name_edit);
         goodHabitDescription = (EditText) view.findViewById(R.id.good_habit_description_edit);
+        checkBoxes = new CheckBox[] {(CheckBox) view.findViewById(R.id.check_sunday_gh),
+                (CheckBox) view.findViewById(R.id.check_monday_gh),
+                (CheckBox) view.findViewById(R.id.check_tuesday_gh),
+                (CheckBox) view.findViewById(R.id.check_wednesday_gh),
+                (CheckBox) view.findViewById(R.id.check_thursday_gh),
+                (CheckBox) view.findViewById(R.id.check_friday_gh),
+                (CheckBox) view.findViewById(R.id.check_saturday_gh)};
 
         if (item != null){
             Log.d(TAG, "onCreateDialog is being called with an item, setting fields");
             goodHabitDescription.setText(item.getDescription());
+            for (int i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].setChecked(item.getDaysOfTheWeek()[i]);
+            }
+
         }
 
         builder.setView(view);
@@ -77,6 +99,22 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         item = new GoodHabitItem();
         item.setName(goodHabitName.getText().toString());
         item.setDescription(goodHabitDescription.getText().toString());
+
+        CheckBox[] checkBoxes = {(CheckBox) dialog.findViewById(R.id.check_sunday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_monday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_tuesday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_wednesday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_thursday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_friday_gh),
+                (CheckBox) dialog.findViewById(R.id.check_saturday_gh)};
+        item.setDaysOfTheWeek(checkBoxes);
+        StringBuilder sb = new StringBuilder();
+        for (CheckBox check: checkBoxes) {
+            sb.append(check.isChecked());
+            sb.append(" ");
+
+        }
+        Log.d(TAG, "Value of checkBoxes: " + sb.toString());
         if (goodHabitName.getText().toString().equals("")) {
             // If the
             Log.d(TAG, "EDIT TEXT IS NULL");
