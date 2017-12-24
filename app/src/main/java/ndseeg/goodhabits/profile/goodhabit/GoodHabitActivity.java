@@ -11,13 +11,17 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
@@ -32,13 +36,17 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
 
     private ListView listView;
 
-    private List<String> savedGoodHabits;
+    // Key will be the item name, and the value will be the actual item. This way can pull up full activity from just the name
+    private Map<String, GoodHabitItem> savedGoodHabits;
+
+    private ArrayList<GoodHabitItem> goodHabitItems;
 
     //todo add ability to delete items, change items to GoodHabitItems
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        goodHabitItems = new ArrayList<>();
         fragmentManager = getFragmentManager();
         setContentView(R.layout.good_habit_activity);
         listView = (ListView) findViewById(R.id.good_habit_list_view);
@@ -53,6 +61,8 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
                     sb.append(line);
                 }
                 Log.d(TAG, "onCreate: Reader reading" + sb.toString());
+                String itemsString = sb.toString();
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,7 +80,10 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
     private void writeOutItem(final Item item) {
         GoodHabitItem goodHabitItem = (GoodHabitItem) item;
         try (OutputStreamWriter writer = new OutputStreamWriter(openFileOutput(goodHabitFilename, Context.MODE_APPEND))) {
-            writer.append(goodHabitItem.toString());
+            Gson gson = new Gson();
+            String json = gson.toJson(goodHabitItem);
+            writer.append(json);
+            writer.append("\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

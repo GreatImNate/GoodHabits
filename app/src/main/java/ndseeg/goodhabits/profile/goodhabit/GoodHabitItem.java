@@ -10,12 +10,8 @@ import java.util.Arrays;
 import lombok.Getter;
 import ndseeg.goodhabits.profile.AbstractItem;
 
-/**
- * Created by Nathan Seegmiller on 11/19/2017.
- */
-
 @SuppressLint("ParcelCreator")
-public class GoodHabitItem extends AbstractItem implements Parcelable {
+public class GoodHabitItem extends AbstractItem {
 
     public GoodHabitItem() {
         super();
@@ -24,16 +20,6 @@ public class GoodHabitItem extends AbstractItem implements Parcelable {
 
     @Getter
     private boolean[] daysOfTheWeek;
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 
     public void setDaysOfTheWeek(CheckBox[] checkBoxes) {
         for (int i = 0; i < checkBoxes.length; i++) {
