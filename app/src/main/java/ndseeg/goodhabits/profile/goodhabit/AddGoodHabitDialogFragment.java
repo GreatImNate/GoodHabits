@@ -10,22 +10,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
-
-/**
- * Created by ndseeg on 12/2/17.
- */
 
 public class AddGoodHabitDialogFragment extends DialogFragment {
 
@@ -40,18 +29,18 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
     private GoodHabitItem item;
 
-
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // Fill in values if something was missing when user tried saving, can also be used for editing
-        item = getArguments().getParcelable("Item");
+        item = getArguments().getParcelable("AbstractItem");
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.add_good_habit, null);
         goodHabitName = (EditText) view.findViewById(R.id.good_habit_name_edit);
         goodHabitDescription = (EditText) view.findViewById(R.id.good_habit_description_edit);
+
+        // todo have a dropdown to chose whether a option needs to be done on specific days of the week, arbitrary days of the week, or a single event
         checkBoxes = new CheckBox[] {(CheckBox) view.findViewById(R.id.check_sunday_gh),
                 (CheckBox) view.findViewById(R.id.check_monday_gh),
                 (CheckBox) view.findViewById(R.id.check_tuesday_gh),
@@ -134,7 +123,7 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         Bundle args = new Bundle();
         
         AddGoodHabitDialogFragment fragment = new AddGoodHabitDialogFragment();
-        args.putParcelable("Item", item);
+        args.putParcelable("AbstractItem", item);
         fragment.setArguments(args);
         return fragment;
     }

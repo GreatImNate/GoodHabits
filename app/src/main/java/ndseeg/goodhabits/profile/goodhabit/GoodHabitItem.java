@@ -5,17 +5,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.CheckBox;
 
-import lombok.AllArgsConstructor;
+import java.util.Arrays;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import ndseeg.goodhabits.profile.Item;
+import ndseeg.goodhabits.profile.AbstractItem;
 
 /**
  * Created by Nathan Seegmiller on 11/19/2017.
  */
 
 @SuppressLint("ParcelCreator")
-public class GoodHabitItem extends Item implements Parcelable {
+public class GoodHabitItem extends AbstractItem implements Parcelable {
 
     public GoodHabitItem() {
         super();
@@ -39,5 +39,9 @@ public class GoodHabitItem extends Item implements Parcelable {
         for (int i = 0; i < checkBoxes.length; i++) {
             daysOfTheWeek[i] = checkBoxes[i].isChecked();
         }
+    }
+
+    public String toString() {
+        return super.toString() + "Days of the Week=" + Arrays.toString(getDaysOfTheWeek());
     }
 }

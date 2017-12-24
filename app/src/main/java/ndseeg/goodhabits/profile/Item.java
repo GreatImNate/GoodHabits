@@ -3,16 +3,15 @@ package ndseeg.goodhabits.profile;
 
 import android.os.Parcelable;
 
-import lombok.Data;
+public interface Item extends Parcelable{
 
-@Data
-public abstract class Item implements Parcelable{
-    String name;
-    String description;
+    void setValue(int value);
+    int getValue();
 
-    // For GHs values will be 1-5 or some number that doing the habit will give
-    // For Goals the value will represent the points that you need to accumulate to
-    int value;
+    void setName(String name);
+    String getName();
 
+    void setDescription(String Description);
+    String getDescription();
 
 }
