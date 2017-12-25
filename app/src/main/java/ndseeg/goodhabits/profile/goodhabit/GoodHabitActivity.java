@@ -25,12 +25,15 @@ import java.util.Map;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
+import ndseeg.goodhabits.profile.ItemAdapter;
 
 public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabitDialogFragment.OnCompleteListener {
 
     private final String TAG = "GoodHabitActivity";
 
     private final String goodHabitFilename = "goodhabit";
+
+    private final Gson gson = new Gson();
 
     private FragmentManager fragmentManager;
 
@@ -39,7 +42,7 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
     // Key will be the item name, and the value will be the actual item. This way can pull up full activity from just the name
     private Map<String, GoodHabitItem> savedGoodHabits;
 
-    private ArrayList<GoodHabitItem> goodHabitItems;
+    private ArrayList<Item> goodHabitItems;
 
     //todo add ability to delete items, change items to GoodHabitItems
 
@@ -62,7 +65,17 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
                 }
                 Log.d(TAG, "onCreate: Reader reading" + sb.toString());
                 String itemsString = sb.toString();
+                String[] items = itemsString.split("/");
+                Log.d(TAG, "onCreate: Splitting read items into individual items: " + Arrays.toString(items));
 
+                for (String item : items) {
+                    Log.d(TAG, "onCreate: Current JSON item: " + item);
+                    GoodHabitItem goodHabitItem = gson.fromJson(item, GoodHabitItem.class);
+                    goodHabitItems.add(goodHabitItem);
+                }
+                ItemAdapter itemAdapter = new ItemAdapter(this, goodHabitItems);
+                listView = (ListView) findViewById(R.id.good_habit_list_view);
+                listView.setAdapter(itemAdapter);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,14 +89,13 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
 
     }
 
-
+    // Todo change write out to only be on activity kill/close otherwise keep everything local in memory. Still need to fix error of parsing wrong
     private void writeOutItem(final Item item) {
         GoodHabitItem goodHabitItem = (GoodHabitItem) item;
         try (OutputStreamWriter writer = new OutputStreamWriter(openFileOutput(goodHabitFilename, Context.MODE_APPEND))) {
-            Gson gson = new Gson();
             String json = gson.toJson(goodHabitItem);
             writer.append(json);
-            writer.append("\n");
+            writer.append("/");
         } catch (IOException e) {
             e.printStackTrace();
         }
