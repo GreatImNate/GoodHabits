@@ -11,10 +11,20 @@
         android:text="@string/profile" />
 
     <Button
-        android:id="@+id/add_good_habit"
+        android:id="@+id/good_habit_launch_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Good Habits"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Goals"
+        android:id="@+id/goals_button_launch_activity"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rewards"
+        android:id="@+id/rewards_button_launch_activity"/>
 
 
 </LinearLayout>

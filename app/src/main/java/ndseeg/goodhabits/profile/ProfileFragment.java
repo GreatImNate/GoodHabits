@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import ndseeg.goodhabits.R;
+import ndseeg.goodhabits.profile.goals.GoalsActivity;
 import ndseeg.goodhabits.profile.goodhabit.GoodHabitActivity;
 
 /**
@@ -35,19 +36,25 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 //        super.onViewCreated(view, savedInstanceState);
         //        return super.onCreateView(inflater, container, savedInstanceState);
-        final Button button = (Button) view.findViewById(R.id.add_good_habit);
+        final Button button = (Button) view.findViewById(R.id.good_habit_launch_activity);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), GoodHabitActivity.class));
             }
         });
+
+        final Button goalsButton = (Button) view.findViewById(R.id.goals_button_launch_activity);
+        goalsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), GoalsActivity.class));
+            }
+        });
     }
 
     public static ProfileFragment newInstance() {
-
         Bundle args = new Bundle();
-
         ProfileFragment fragment = new ProfileFragment();
         fragment.setArguments(args);
         return fragment;

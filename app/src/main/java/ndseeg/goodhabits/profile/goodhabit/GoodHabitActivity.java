@@ -5,29 +5,23 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import ndseeg.goodhabits.R;
+import ndseeg.goodhabits.profile.AddActivity;
 import ndseeg.goodhabits.profile.Item;
 import ndseeg.goodhabits.profile.ItemAdapter;
 
-public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabitDialogFragment.OnCompleteListener {
+public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialogFragment.OnCompleteListener {
 
     private final String TAG = "GoodHabitActivity";
 
@@ -45,6 +39,7 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
     private ArrayList<Item> goodHabitItems;
 
     //todo add ability to delete items, change items to GoodHabitItems
+    // Clicking on items should open up a dialog where
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,33 +48,15 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
         fragmentManager = getFragmentManager();
         setContentView(R.layout.good_habit_activity);
         listView = (ListView) findViewById(R.id.good_habit_list_view);
-        try  {
-            File file = new File(getFilesDir(), goodHabitFilename);
-            if (file.exists()) {
-                Log.d(TAG, "onCreate: Does this file ever exist?");
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-                Log.d(TAG, "onCreate: Reader reading" + sb.toString());
-                String itemsString = sb.toString();
-                String[] items = itemsString.split("/");
-                Log.d(TAG, "onCreate: Splitting read items into individual items: " + Arrays.toString(items));
-
-                for (String item : items) {
-                    Log.d(TAG, "onCreate: Current JSON item: " + item);
-                    GoodHabitItem goodHabitItem = gson.fromJson(item, GoodHabitItem.class);
-                    goodHabitItems.add(goodHabitItem);
-                }
-                ItemAdapter itemAdapter = new ItemAdapter(this, goodHabitItems);
-                listView = (ListView) findViewById(R.id.good_habit_list_view);
-                listView.setAdapter(itemAdapter);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String[] items = getItemsFromFile(goodHabitFilename);
+        for (String item : items) {
+            Log.d(TAG, "onCreate: Current JSON item: " + item);
+            GoodHabitItem goodHabitItem = gson.fromJson(item, GoodHabitItem.class);
+            goodHabitItems.add(goodHabitItem);
         }
+        ItemAdapter itemAdapter = new ItemAdapter(this, goodHabitItems);
+        listView = (ListView) findViewById(R.id.good_habit_list_view);
+        listView.setAdapter(itemAdapter);
     }
 
     public void addGoodHabit(View view) {
@@ -104,7 +81,7 @@ public class GoodHabitActivity extends AppCompatActivity implements AddGoodHabit
     @Override
     public void onComplete(final Item item) {
         Log.i(TAG, "onComplete: User entered in item to be saved");
-        // Todo try append mode instead of private, find some way to not override values in file
+        // todo check for duplicates before writing out/saving to array list
         writeOutItem(item);
         finish();
         startActivity(getIntent());

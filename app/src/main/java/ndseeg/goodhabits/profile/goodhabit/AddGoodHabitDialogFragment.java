@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
@@ -36,9 +37,10 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         // Fill in values if something was missing when user tried saving, can also be used for editing
         item = getArguments().getParcelable("AbstractItem");
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.add_good_habit, null);
+        View view = layoutInflater.inflate(R.layout.add_good_habit_dialog_fragment, null);
         goodHabitName = (EditText) view.findViewById(R.id.good_habit_name_edit);
         goodHabitDescription = (EditText) view.findViewById(R.id.good_habit_description_edit);
+
 
         // todo have a dropdown to chose whether a option needs to be done on specific days of the week, arbitrary days of the week, or a single event
         checkBoxes = new CheckBox[] {(CheckBox) view.findViewById(R.id.check_sunday_gh),
@@ -89,13 +91,13 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         item.setName(goodHabitName.getText().toString());
         item.setDescription(goodHabitDescription.getText().toString());
 
-        CheckBox[] checkBoxes = {(CheckBox) dialog.findViewById(R.id.check_sunday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_monday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_tuesday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_wednesday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_thursday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_friday_gh),
-                (CheckBox) dialog.findViewById(R.id.check_saturday_gh)};
+//        CheckBox[] checkBoxes = {(CheckBox) dialog.findViewById(R.id.check_sunday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_monday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_tuesday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_wednesday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_thursday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_friday_gh),
+//                (CheckBox) dialog.findViewById(R.id.check_saturday_gh)};
         item.setDaysOfTheWeek(checkBoxes);
         StringBuilder sb = new StringBuilder();
         for (CheckBox check: checkBoxes) {
