@@ -22,7 +22,15 @@
         android:onClick="addGoodHabit"
         android:background="@android:color/transparent"/>
 
-        <!--<android.support.design.widget.FloatingActionButton-->
+    <TextView
+        android:id="@+id/active_good_habits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/message"
+        android:layout_below="@+id/message"
+        android:text="TextView" />
+
+    <!--<android.support.design.widget.FloatingActionButton-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_alignParentBottom="true"-->

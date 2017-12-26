@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import ndseeg.goodhabits.profile.ProfileFragment;
 import ndseeg.goodhabits.tracking.CalendarFragment;
 
@@ -21,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getFragmentManager();
 
     private TextView mTextMessage;
+
+    private final Calendar calendar = Calendar.getInstance();
+
 
     // Make public to share across all the different activities
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -61,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        calendar.setTime(new Date(System.currentTimeMillis()));
+        Log.d(TAG, "Current Day of the week is " + calendar.get(Calendar.DAY_OF_WEEK));
     }
+    //day of week is one based indexing
 
 
     public void goodHabitPostiveClick() {
