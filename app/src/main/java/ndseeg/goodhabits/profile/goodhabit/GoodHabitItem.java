@@ -13,13 +13,14 @@ import ndseeg.goodhabits.profile.AbstractItem;
 @SuppressLint("ParcelCreator")
 public class GoodHabitItem extends AbstractItem {
 
+
+    @Getter
+    private boolean[] daysOfTheWeek;
+
     public GoodHabitItem() {
         super();
         daysOfTheWeek = new boolean[7];
     }
-
-    @Getter
-    private boolean[] daysOfTheWeek;
 
     public void setDaysOfTheWeek(CheckBox[] checkBoxes) {
         for (int i = 0; i < checkBoxes.length; i++) {
