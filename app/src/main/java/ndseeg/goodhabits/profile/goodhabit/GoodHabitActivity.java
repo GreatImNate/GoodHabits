@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,7 +16,9 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.AddActivity;
@@ -46,14 +49,31 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         goodHabitItems = new ArrayList<>();
+        savedGoodHabits = new HashMap<>();
         fragmentManager = getFragmentManager();
         setContentView(R.layout.good_habit_activity);
         listView = (ListView) findViewById(R.id.good_habit_list_view);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance((Item) listView.getItemAtPosition(position));
+                addGoodHabit.setTargetFragment(addGoodHabit, 1);
+                addGoodHabit.show(fragmentManager, "addGoodHabit");
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                return false;
+            }
+        });
         String[] items = getItemsFromFile(goodHabitFilename);
         for (String item : items) {
             Log.d(TAG, "onCreate: Current JSON item: " + item);
             GoodHabitItem goodHabitItem = gson.fromJson(item, GoodHabitItem.class);
             goodHabitItems.add(goodHabitItem);
+            savedGoodHabits.put(goodHabitItem.getName(), goodHabitItem);
         }
         ItemAdapter itemAdapter = new ItemAdapter(this, goodHabitItems);
         listView = (ListView) findViewById(R.id.good_habit_list_view);
@@ -79,12 +99,24 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
         }
     }
 
+
     @Override
     public void onComplete(final Item item) {
         Log.i(TAG, "onComplete: User entered in item to be saved");
         // todo check for duplicates before writing out/saving to array list
+        if (savedGoodHabits.containsKey(item.getName())) {
+            // User is overwriting saved good habit
+            if (! savedGoodHabits.get(item.getName()).equals(item)) {
+                Log.d(TAG, "onComplete: Changes have been made to item name=" + item.getName() +
+                        " savedItem: " + savedGoodHabits.get(item.getName()) +
+                        " alteredItem: " + item);
+                // If changes have been made to the item
+            }
+
+        }
         writeOutItem(item);
         finish();
         startActivity(getIntent());
     }
+
 }

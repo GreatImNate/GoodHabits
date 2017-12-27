@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.widget.CheckBox;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import lombok.Getter;
 import ndseeg.goodhabits.profile.AbstractItem;
@@ -30,5 +31,14 @@ public class GoodHabitItem extends AbstractItem {
 
     public String toString() {
         return super.toString() + "Days of the Week=" + Arrays.toString(getDaysOfTheWeek());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GoodHabitItem)) return false;
+        if (!super.equals(o)) return false;
+        GoodHabitItem that = (GoodHabitItem) o;
+        return Arrays.equals(getDaysOfTheWeek(), that.getDaysOfTheWeek());
     }
 }

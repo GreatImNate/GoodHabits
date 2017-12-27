@@ -53,10 +53,16 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
         if (item != null){
             Log.d(TAG, "onCreateDialog is being called with an item, setting fields");
+            if (!(item.getName().isEmpty() || item.getName() == null)) {
+                goodHabitName.setText(item.getName());
+                goodHabitName.setFocusable(false);
+                goodHabitName.setEnabled(false);
+            }
             goodHabitDescription.setText(item.getDescription());
             for (int i = 0; i < checkBoxes.length; i++) {
                 checkBoxes[i].setChecked(item.getDaysOfTheWeek()[i]);
             }
+            // todo add value field
 
         }
 
