@@ -49,4 +49,8 @@ public abstract class AddActivity extends AppCompatActivity {
         return items;
     }
 
+    public static boolean confirmSelection(String selection) {
+        return selection.equals("true");
+    }
+
 }

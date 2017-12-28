@@ -85,7 +85,6 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
                             }
                         });
 
-        // Create the AlertDialog object and return it
         return builder.create();
     }
 
@@ -96,14 +95,6 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
         item = new GoodHabitItem();
         item.setName(goodHabitName.getText().toString());
         item.setDescription(goodHabitDescription.getText().toString());
-
-//        CheckBox[] checkBoxes = {(CheckBox) dialog.findViewById(R.id.check_sunday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_monday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_tuesday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_wednesday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_thursday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_friday_gh),
-//                (CheckBox) dialog.findViewById(R.id.check_saturday_gh)};
         item.setDaysOfTheWeek(checkBoxes);
         StringBuilder sb = new StringBuilder();
         for (CheckBox check: checkBoxes) {

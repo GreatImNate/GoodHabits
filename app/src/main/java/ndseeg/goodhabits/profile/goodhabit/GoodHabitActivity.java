@@ -22,6 +22,7 @@ import java.util.Objects;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.AddActivity;
+import ndseeg.goodhabits.profile.ConfirmOverwriteDialogFragment;
 import ndseeg.goodhabits.profile.Item;
 import ndseeg.goodhabits.profile.ItemAdapter;
 
@@ -110,13 +111,19 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
                 Log.d(TAG, "onComplete: Changes have been made to item name=" + item.getName() +
                         " savedItem: " + savedGoodHabits.get(item.getName()) +
                         " alteredItem: " + item);
-                // If changes have been made to the item
+                DialogFragment confirmDialog = ConfirmOverwriteDialogFragment.newInstance("Do you want to update Good Habit?");
+                confirmDialog.setTargetFragment(confirmDialog, 5);
+                confirmDialog.show(fragmentManager, "confirmUpdate");
+                // todo: If changes have been made to the item overwrite value in map and in final then refresh, otherwise
             }
+        } else {
+            // todo add to map
+            // Else if new Item, add to the map and refresh the activity
+            writeOutItem(item);
+            finish();
+            startActivity(getIntent());
 
         }
-        writeOutItem(item);
-        finish();
-        startActivity(getIntent());
     }
 
 }
