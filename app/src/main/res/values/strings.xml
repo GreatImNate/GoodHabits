@@ -25,4 +25,9 @@
         <item>Weekly</item>
         <item>Monthly</item>
     </string-array>
+    <string-array name="good_habit_recurrence">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
 </resources>

@@ -72,9 +72,4 @@ public class MainActivity extends AppCompatActivity {
     }
     //day of week is one based indexing
 
-
-    public void goodHabitPostiveClick() {
-        Log.d(TAG, "Postivie Vibes");
-    }
-
 }

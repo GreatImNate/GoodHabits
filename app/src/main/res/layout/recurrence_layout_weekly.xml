@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Sunday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton"
+            android:text="Monday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton2"
+            android:text="Tuesday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton3"
+            android:text="Wednesday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton4"
+            android:text="Thursday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton5"
+            android:text="Friday" />
+
+        <RadioButton
+            android:id="@+id/RadioButton7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/RadioButton6"
+            android:text="Saturday" />
+
+    </RadioGroup>
+
+</LinearLayout>

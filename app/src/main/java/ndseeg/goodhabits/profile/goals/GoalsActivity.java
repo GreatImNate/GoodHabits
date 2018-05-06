@@ -27,7 +27,7 @@ public class GoalsActivity extends AddActivity {
 
     public void addGoals(View view) {
         DialogFragment addGoalsFragment = AddGoalsDialogFragment.newInstance(null);
-        addGoalsFragment.setTargetFragment(addGoalsFragment, 2);
+//        addGoalsFragment.setTargetFragment(addGoalsFragment, 2);
         addGoalsFragment.show(fragmentManager, "addGoals");
     }
 }

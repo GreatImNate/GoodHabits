@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".profile.goodhabit.GoodHabitActivity"/>
         <activity android:name=".profile.goals.GoalsActivity"/>
+        <activity android:name=".profile.goodhabit.AddGoodHabitActivity"/>
 
     </application>
 

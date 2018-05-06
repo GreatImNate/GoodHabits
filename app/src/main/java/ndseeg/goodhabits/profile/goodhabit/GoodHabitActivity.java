@@ -3,6 +3,7 @@ package ndseeg.goodhabits.profile.goodhabit;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -58,7 +59,7 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance((Item) listView.getItemAtPosition(position));
-                addGoodHabit.setTargetFragment(addGoodHabit, 1);
+//                addGoodHabit.setTargetFragment(addGoodHabit, 1);
                 addGoodHabit.show(fragmentManager, "addGoodHabit");
             }
         });
@@ -82,9 +83,12 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
     }
 
     public void addGoodHabit(View view) {
-        DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance(null);
-        addGoodHabit.setTargetFragment(addGoodHabit, 1);
-        addGoodHabit.show(fragmentManager, "addGoodHabit");
+//        DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance(null);
+//        addGoodHabit.setTargetFragment(addGoodHabit, 1);
+//        addGoodHabit.show(fragmentManager, "addGoodHabit");
+
+        Intent intent = new Intent(getApplicationContext(), AddGoodHabitActivity.class);
+        startActivity(intent);
 
     }
 
@@ -112,7 +116,7 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
                         " savedItem: " + savedGoodHabits.get(item.getName()) +
                         " alteredItem: " + item);
                 DialogFragment confirmDialog = ConfirmOverwriteDialogFragment.newInstance("Do you want to update Good Habit?");
-                confirmDialog.setTargetFragment(confirmDialog, 5);
+//                confirmDialog.setTargetFragment(confirmDialog, 5);
                 confirmDialog.show(fragmentManager, "confirmUpdate");
                 // todo: If changes have been made to the item overwrite value in map and in final then refresh, otherwise
             }
