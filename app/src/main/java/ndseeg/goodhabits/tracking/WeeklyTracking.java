@@ -4,7 +4,6 @@ import android.icu.util.Calendar;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
 
 /**
  * Created by ndseeg on 12/8/17.

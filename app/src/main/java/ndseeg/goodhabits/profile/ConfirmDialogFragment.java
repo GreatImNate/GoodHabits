@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import lombok.Setter;
 import ndseeg.goodhabits.R;
 
 /**
@@ -15,7 +14,14 @@ import ndseeg.goodhabits.R;
 
 public abstract class ConfirmDialogFragment extends DialogFragment {
 
-    @Setter
+    public String getTitleMessage() {
+        return titleMessage;
+    }
+
+    public void setTitleMessage(String titleMessage) {
+        this.titleMessage = titleMessage;
+    }
+
     private String titleMessage;
 
     @Override

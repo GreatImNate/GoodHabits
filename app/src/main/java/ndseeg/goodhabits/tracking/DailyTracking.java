@@ -2,10 +2,20 @@ package ndseeg.goodhabits.tracking;
 
 import java.util.Date;
 
-import lombok.Data;
 
-@Data
 public class DailyTracking {
+    public DailyTracking(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     private Date date;
 
 }

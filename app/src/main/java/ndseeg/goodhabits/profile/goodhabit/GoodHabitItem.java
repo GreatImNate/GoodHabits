@@ -8,14 +8,20 @@ import android.widget.CheckBox;
 import java.util.Arrays;
 import java.util.Objects;
 
-import lombok.Getter;
 import ndseeg.goodhabits.profile.AbstractItem;
 
 @SuppressLint("ParcelCreator")
 public class GoodHabitItem extends AbstractItem {
 
 
-    @Getter
+    public boolean[] getDaysOfTheWeek() {
+        return daysOfTheWeek;
+    }
+
+    public void setDaysOfTheWeek(boolean[] daysOfTheWeek) {
+        this.daysOfTheWeek = daysOfTheWeek;
+    }
+
     private boolean[] daysOfTheWeek;
 
     public GoodHabitItem() {
