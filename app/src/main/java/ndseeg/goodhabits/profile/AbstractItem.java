@@ -1,10 +1,15 @@
 package ndseeg.goodhabits.profile;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import android.support.annotation.NonNull;
 
+@Entity
 public abstract class AbstractItem implements Parcelable, Item {
 
 
@@ -27,7 +32,13 @@ public abstract class AbstractItem implements Parcelable, Item {
 
     }
 
+    @PrimaryKey
+    @NonNull
     private String name;
+
+    private String description;
+
+    private int value;
 
     @Override
     public String getName() {
@@ -58,12 +69,5 @@ public abstract class AbstractItem implements Parcelable, Item {
     public void setValue(int value) {
         this.value = value;
     }
-
-    private String description;
-
-    // For GHs values will be 1-5 or some number that doing the habit will give
-    // For Goals the value will represent the points that you need to accumulate to
-    private int value;
-
 
 }

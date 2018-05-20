@@ -10,18 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 
 import java.util.Arrays;
 import java.util.List;
 
 import ndseeg.goodhabits.R;
+import ndseeg.goodhabits.utils.AppDatabase;
 
 public class AddGoodHabitActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -29,14 +29,20 @@ public class AddGoodHabitActivity extends AppCompatActivity implements AdapterVi
 
     private final FragmentManager fragmentManager = getFragmentManager();
 
+    private AppDatabase appDatabase;
+
     private RelativeLayout layout;
     private ArrayAdapter<String> recurrenceAdapter;
     private Spinner recurrenceSpinner;
     private LayoutInflater layoutInflater;
 
+    private GoodHabitItem addItem;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appDatabase = AppDatabase.getInstance(getApplicationContext());
+        addItem = new GoodHabitItem();
         setContentView(R.layout.add_good_habit_activity);
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layout = (RelativeLayout) findViewById(R.id.good_habit_layout);
@@ -71,9 +77,17 @@ public class AddGoodHabitActivity extends AppCompatActivity implements AdapterVi
 
     }
 
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void saveGoodHabit(View view) {
+        EditText ghName = (EditText) findViewById(R.id.good_habit_name);
+        EditText ghDescription = (EditText) findViewById(R.id.good_habit_description);
+        addItem.setName(ghName.getText().toString());
+        addItem.setDescription(ghDescription.getText().toString());
+        appDatabase.dao().insertGoodHabit(addItem);
+        finish();
     }
 }

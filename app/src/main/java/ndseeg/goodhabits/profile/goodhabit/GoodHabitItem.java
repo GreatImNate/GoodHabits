@@ -1,33 +1,40 @@
 package ndseeg.goodhabits.profile.goodhabit;
 
 import android.annotation.SuppressLint;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.widget.CheckBox;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 import ndseeg.goodhabits.profile.AbstractItem;
 
+@Entity(tableName = "goodhabititem")
 @SuppressLint("ParcelCreator")
 public class GoodHabitItem extends AbstractItem {
 
+    @Ignore
+    private final boolean inheritSuperIndices = true;
+
+    @Ignore
+    private boolean[] daysOfTheWeek;
 
     public boolean[] getDaysOfTheWeek() {
         return daysOfTheWeek;
+    }
+
+    public GoodHabitItem() {
+        super();
+        daysOfTheWeek = new boolean[7];
     }
 
     public void setDaysOfTheWeek(boolean[] daysOfTheWeek) {
         this.daysOfTheWeek = daysOfTheWeek;
     }
 
-    private boolean[] daysOfTheWeek;
-
-    public GoodHabitItem() {
-        super();
-        daysOfTheWeek = new boolean[7];
-    }
+//    boolean inheritSuperIndices() {
+//        return true;
+//    }
 
     public void setDaysOfTheWeek(CheckBox[] checkBoxes) {
         for (int i = 0; i < checkBoxes.length; i++) {
