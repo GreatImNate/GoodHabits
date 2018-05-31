@@ -2,6 +2,7 @@ package ndseeg.goodhabits.utils;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -15,4 +16,7 @@ public interface DatabaseDao {
 
     @Insert
     void insertGoodHabit(final GoodHabitItem goodHabitItem);
+
+    @Delete
+    void deleteGoodHabitItem(final GoodHabitItem goodHabitItem);
 }

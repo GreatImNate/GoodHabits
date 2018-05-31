@@ -17,6 +17,8 @@ import ndseeg.goodhabits.R;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
 
+    private List items;
+
     public ItemAdapter(@NonNull Context context, @NonNull ArrayList<Item> items) {
         super(context, 0, items);
     }
@@ -44,5 +46,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             itemDescription.setText(item.getDescription());
         }
         return convertView;
+    }
+
+    public void setListItems(List items) {
+        this.items = items;
+        this.notifyDataSetChanged();
+
     }
 }

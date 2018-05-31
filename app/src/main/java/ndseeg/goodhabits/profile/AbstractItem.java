@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 @Entity
 public abstract class AbstractItem implements Parcelable, Item {
 
-
     public AbstractItem(String name, String description, int value) {
         this.name = name;
         this.description = description;
@@ -69,5 +68,16 @@ public abstract class AbstractItem implements Parcelable, Item {
     public void setValue(int value) {
         this.value = value;
     }
+
+
+    @Override
+    public String toString() {
+        return "AbstractItem{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                '}';
+    }
+
 
 }

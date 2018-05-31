@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +36,6 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
 
     private final String goodHabitFilename = "goodhabit";
 
-    private final Gson gson = new Gson();
-
     private FragmentManager fragmentManager;
 
     private ListView listView;
@@ -46,6 +46,8 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
     private ArrayList<Item> goodHabitItems;
 
     private AppDatabase appDatabase;
+
+    private ItemAdapter itemAdapter;
 
     //todo add ability to delete items, change items to GoodHabitItems
     // Clicking on items should open up a dialog where
@@ -64,7 +66,6 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance((Item) listView.getItemAtPosition(position));
-//                addGoodHabit.setTargetFragment(addGoodHabit, 1);
                 addGoodHabit.show(fragmentManager, "addGoodHabit");
             }
         });
@@ -75,48 +76,34 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
                 return false;
             }
         });
+        itemAdapter = new ItemAdapter(this, new ArrayList<Item>());
         fillListView();
     }
 
     @Override
     protected void onResume() {
+        // TODO: Have the onResume refresh the list
         super.onResume();
-        fillListView();
+//        fillListView();
+//        goodHabitItems.clear();
+        itemAdapter.setListItems(Arrays.asList(appDatabase.dao().getAllGoodHabits()));
+        Log.d(TAG, "onResume: Item List" + Arrays.toString(appDatabase.dao().getAllGoodHabits()));
+        listView.setAdapter(itemAdapter);
     }
 
     public void addGoodHabit(View view) {
-//        DialogFragment addGoodHabit = AddGoodHabitDialogFragment.newInstance(null);
-//        addGoodHabit.setTargetFragment(addGoodHabit, 1);
-//        addGoodHabit.show(fragmentManager, "addGoodHabit");
-
         Intent intent = new Intent(getApplicationContext(), AddGoodHabitActivity.class);
         startActivity(intent);
-
-    }
-
-    // Todo change write out to only be on activity kill/close otherwise keep everything local in memory. Still need to fix error of parsing wrong
-    private void writeOutItem(final Item item) {
-        GoodHabitItem goodHabitItem = (GoodHabitItem) item;
-        try (OutputStreamWriter writer = new OutputStreamWriter(openFileOutput(goodHabitFilename, Context.MODE_APPEND))) {
-            String json = gson.toJson(goodHabitItem);
-            writer.append(json);
-            writer.append("/");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void fillListView() {
         GoodHabitItem[] dbGoodHabits = appDatabase.dao().getAllGoodHabits();
-        String[] items = getItemsFromFile(goodHabitFilename);
         for (GoodHabitItem item : dbGoodHabits) {
-            Log.d(TAG, "onCreate: Current JSON item: " + item);
-//            GoodHabitItem goodHabitItem = gson.fromJson(item, GoodHabitItem.class);
+            Log.d(TAG, "onCreate: Current item: " + item);
             goodHabitItems.add(item);
             savedGoodHabits.put(item.getName(), item);
         }
-        ItemAdapter itemAdapter = new ItemAdapter(this, goodHabitItems);
-        listView = (ListView) findViewById(R.id.good_habit_list_view);
+        itemAdapter.addAll(goodHabitItems);
         listView.setAdapter(itemAdapter);
     }
 
@@ -132,11 +119,9 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
                         " savedItem: " + savedGoodHabits.get(item.getName()) +
                         " alteredItem: " + item);
                 DialogFragment confirmDialog = ConfirmOverwriteDialogFragment.newInstance("Do you want to update Good Habit?");
-//                confirmDialog.setTargetFragment(confirmDialog, 5);
                 confirmDialog.show(fragmentManager, "confirmUpdate");
             }
         } else {
-            writeOutItem(item);
             finish();
             startActivity(getIntent());
 

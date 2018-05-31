@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import ndseeg.goodhabits.R;
 import ndseeg.goodhabits.profile.Item;
+import ndseeg.goodhabits.utils.AppDatabase;
 
 public class AddGoodHabitDialogFragment extends DialogFragment {
 
@@ -30,9 +31,14 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
 
     private GoodHabitItem item;
 
+    private AppDatabase appDatabase;
+
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        appDatabase = AppDatabase.getInstance(getActivity().getApplicationContext());
+
 
         // Fill in values if something was missing when user tried saving, can also be used for editing
         item = getArguments().getParcelable("AbstractItem");
@@ -77,7 +83,12 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
                                 if (result)
                                     dismiss();
                             }
-                        })
+                        }).setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                appDatabase.dao().deleteGoodHabitItem(item);
+            }
+        })
                 .setNegativeButton(R.string.alert_dialog_cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -118,9 +129,9 @@ public class AddGoodHabitDialogFragment extends DialogFragment {
     }
 
     public static AddGoodHabitDialogFragment newInstance(@Nullable Item item) {
-        
+
         Bundle args = new Bundle();
-        
+
         AddGoodHabitDialogFragment fragment = new AddGoodHabitDialogFragment();
         args.putParcelable("AbstractItem", item);
         fragment.setArguments(args);
