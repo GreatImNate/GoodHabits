@@ -32,9 +32,9 @@ import ndseeg.goodhabits.utils.AppDatabase;
 // todo: Rename class to show that it displays/adds new good habits
 public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialogFragment.OnCompleteListener {
 
-    private final String TAG = "GoodHabitActivity";
+    private final int ADD_REQUEST_CODE = 1;
 
-    private final String goodHabitFilename = "goodhabit";
+    private final String TAG = "GoodHabitActivity";
 
     private FragmentManager fragmentManager;
 
@@ -42,8 +42,6 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
 
     // Key will be the item name, and the value will be the actual item. This way can pull up full activity from just the name
     private Map<String, GoodHabitItem> savedGoodHabits;
-
-    private ArrayList<Item> goodHabitItems;
 
     private AppDatabase appDatabase;
 
@@ -56,7 +54,6 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appDatabase = AppDatabase.getInstance(getApplicationContext());
-        goodHabitItems = new ArrayList<>();
         savedGoodHabits = new HashMap<>();
         fragmentManager = getFragmentManager();
         setContentView(R.layout.good_habit_activity);
@@ -77,33 +74,35 @@ public class GoodHabitActivity extends AddActivity implements AddGoodHabitDialog
             }
         });
         itemAdapter = new ItemAdapter(this, new ArrayList<Item>());
-        fillListView();
+        fillListView(appDatabase.dao().getAllGoodHabits());
     }
 
     @Override
-    protected void onResume() {
-        // TODO: Have the onResume refresh the list
-        super.onResume();
-//        fillListView();
-//        goodHabitItems.clear();
-        itemAdapter.setListItems(Arrays.asList(appDatabase.dao().getAllGoodHabits()));
-        Log.d(TAG, "onResume: Item List" + Arrays.toString(appDatabase.dao().getAllGoodHabits()));
-        listView.setAdapter(itemAdapter);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_REQUEST_CODE) {
+            super.onActivityResult(requestCode, resultCode, data);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    fillListView(appDatabase.dao().getAllGoodHabits());
+//                    itemAdapter.setListItems(Arrays.asList(appDatabase.dao().getAllGoodHabits()));
+                }
+            });
+        }
+
     }
+
+
 
     public void addGoodHabit(View view) {
         Intent intent = new Intent(getApplicationContext(), AddGoodHabitActivity.class);
-        startActivity(intent);
+//        startActivity(intent);
+        startActivityForResult(intent, ADD_REQUEST_CODE);
     }
 
-    private void fillListView() {
-        GoodHabitItem[] dbGoodHabits = appDatabase.dao().getAllGoodHabits();
-        for (GoodHabitItem item : dbGoodHabits) {
-            Log.d(TAG, "onCreate: Current item: " + item);
-            goodHabitItems.add(item);
-            savedGoodHabits.put(item.getName(), item);
-        }
-        itemAdapter.addAll(goodHabitItems);
+    private void fillListView(GoodHabitItem[] dbGoodHabits) {
+        itemAdapter.clear();
+        itemAdapter.addAll(Arrays.asList(dbGoodHabits));
         listView.setAdapter(itemAdapter);
     }
 

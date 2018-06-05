@@ -49,7 +49,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     }
 
     public void setListItems(List items) {
-        this.items = items;
+        if (this.items != null) {
+            this.items.clear();
+            this.items.addAll(items);
+        }
         this.notifyDataSetChanged();
 
     }

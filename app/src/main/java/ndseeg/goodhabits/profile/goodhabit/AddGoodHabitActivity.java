@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,9 @@ public class AddGoodHabitActivity extends AppCompatActivity implements AdapterVi
         addItem.setName(ghName.getText().toString());
         addItem.setDescription(ghDescription.getText().toString());
         appDatabase.dao().insertGoodHabit(addItem);
+        Intent data = new Intent();
+        data.putExtra("goodHabit", addItem);
+        setResult(0, data);
         finish();
     }
 }
